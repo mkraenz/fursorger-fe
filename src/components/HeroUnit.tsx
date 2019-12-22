@@ -32,7 +32,7 @@ const HeroUnit: React.FunctionComponent = () => {
                 color="textSecondary"
                 component="p"
             >
-                Can you rescue this dying world?
+                This world is dying. Can you save us?
             </Typography>
         </Container>
     );
