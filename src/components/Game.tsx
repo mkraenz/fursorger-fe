@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Game: React.FunctionComponent = () => {
-    const classes = useStyles();
+    const classes = useStyles({});
     const [loading, setLoading] = useState(true);
 
     const title = "Instant Play";

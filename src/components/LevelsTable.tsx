@@ -73,7 +73,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function LevelsTable() {
-    const classes = useStyles();
+    const classes = useStyles({});
 
     return (
         <Container maxWidth="md" className={classes.container}>

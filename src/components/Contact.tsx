@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Contact: React.FunctionComponent = () => {
-    const classes = useStyles();
+    const classes = useStyles({});
 
     return (
         <Container maxWidth="md" component="main" className={classes.container}>

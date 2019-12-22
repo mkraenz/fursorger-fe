@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Header: React.FunctionComponent = () => {
-    const classes = useStyles();
+    const classes = useStyles({});
     return (
         <AppBar
             position="static"

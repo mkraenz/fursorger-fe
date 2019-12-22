@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const HeroUnit: React.FunctionComponent = () => {
-    const classes = useStyles();
+    const classes = useStyles({});
     return (
         <Container
             maxWidth="sm"

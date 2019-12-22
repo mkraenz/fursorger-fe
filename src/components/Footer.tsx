@@ -51,7 +51,7 @@ const footers = [
 ];
 
 const Footer: React.FunctionComponent = () => {
-    const classes = useStyles();
+    const classes = useStyles({});
 
     return (
         <Container maxWidth="md" component="footer" className={classes.footer}>
