@@ -1,7 +1,7 @@
 import { ActionType } from "./ActionType";
 
 export interface ITestmeAction {
-    type: ActionType;
+    type: ActionType.TestMe;
     payload: {
         test: string;
     };

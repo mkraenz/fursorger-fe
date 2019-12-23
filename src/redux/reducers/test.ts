@@ -10,7 +10,6 @@ export const testReducer = (
     state = initialState,
     action: ITestmeAction
 ): ITestState => {
-    console.log(`trigger with ${action.type}`);
     switch (action.type) {
         case ActionType.TestMe:
             return {

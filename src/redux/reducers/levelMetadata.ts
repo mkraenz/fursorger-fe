@@ -1,12 +1,13 @@
-import { AnyAction } from "redux";
-import { levelRows } from "../../components/levels.data";
+import { ActionType, ILevelMetadataAction } from "../actions/ActionType";
 import { ILevelMetadataState } from "../store/ILevelMetadataState";
 
 export const levelMetadataReducer = (
-    state: ILevelMetadataState = levelRows,
-    action: AnyAction
+    state: ILevelMetadataState = [],
+    action: ILevelMetadataAction
 ) => {
     switch (action.type) {
+        case ActionType.LevelMetadataFetchSuccess:
+            return action.payload.levelMetadata;
         default:
             return state;
     }
