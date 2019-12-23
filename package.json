@@ -25,6 +25,7 @@
         "@types/node": "^12.12.21",
         "@types/react": "latest",
         "@types/react-dom": "latest",
+        "@types/react-redux": "^7.1.5",
         "prettier": "1.17.0",
         "prettier-tslint": "^0.4.2",
         "tslint": "5.16.0",

@@ -1,3 +1,7 @@
-export interface IState {
+import { rootReducer } from "../reducers";
+
+export type IState = ReturnType<typeof rootReducer>;
+
+export interface ITestState {
     test: string;
 }

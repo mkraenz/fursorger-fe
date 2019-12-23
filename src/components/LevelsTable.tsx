@@ -13,8 +13,10 @@ import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
 import React from "react";
 import { connect } from "react-redux";
 import { testme } from "../redux/action-creators/testme";
+import { ILevelMetadata } from "../redux/store/ILevelMetadataState";
 import { IState } from "../redux/store/IState";
 import { levelRows } from "./levels.data";
+import { selectLevelMetadata } from "./selectors/selectLevelMetadata";
 import Title from "./Title";
 
 function preventDefault(event: { preventDefault: () => void }) {
@@ -32,6 +34,7 @@ const useStyles = makeStyles(theme => ({
 
 interface Props {
     testme: () => void;
+    levelMetadata: ILevelMetadata[];
 }
 
 const LevelsTable: React.FunctionComponent<Props> = (props: Props) => {
@@ -58,7 +61,7 @@ const LevelsTable: React.FunctionComponent<Props> = (props: Props) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {levelRows.map(row => (
+                    {props.levelMetadata.map(row => (
                         <TableRow key={row.id}>
                             <TableCell>{row.levelName}</TableCell>
                             <TableCell>{row.likes}</TableCell>
@@ -124,7 +127,9 @@ const handleUploadClicked = () => {
     alert("Awesome. Thanks for sharing.");
 };
 
-const mapStateToProps = (state: IState) => state;
+const mapStateToProps = (state: IState): Pick<Props, "levelMetadata"> => ({
+    levelMetadata: selectLevelMetadata(state),
+});
 
 const mapDispatchToProps: Pick<Props, "testme"> = {
     testme,
