@@ -11,53 +11,8 @@ import GetAppIcon from "@material-ui/icons/GetApp";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
 import React from "react";
+import { levelRows } from "./levels.data";
 import Title from "./Title";
-
-interface ILevelWithMetadata {
-    id: number;
-    levelName: string;
-    likes: number;
-    downloads: number;
-    uploadDate: string;
-    uploader: string;
-    gameVersion: string;
-    version: number;
-}
-
-export const createDataRow = (
-    id: number,
-    levelName: string,
-    likes: number,
-    downloads: number,
-    uploadDate: string,
-    uploader: string,
-    gameVersion: string,
-    version: number
-): ILevelWithMetadata => ({
-    id,
-    levelName,
-    likes,
-    downloads,
-    uploadDate,
-    uploader,
-    gameVersion,
-    version,
-});
-
-const rows = [
-    createDataRow(0, "Wesnoth", 5, 7, "19 Nov, 2019", "Mirco", "1.0.0", 2),
-    createDataRow(1, "Brandenburg", 49, 65, "6 Dec, 2019", "Matze", "1.0.1", 1),
-    createDataRow(
-        2,
-        "My first Level",
-        0,
-        1,
-        "21 Dec, 2019",
-        "Peter",
-        "1.5.3",
-        1
-    ),
-];
 
 function preventDefault(event: { preventDefault: () => void }) {
     event.preventDefault();
@@ -94,7 +49,7 @@ export default function LevelsTable() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map(row => (
+                    {levelRows.map(row => (
                         <TableRow key={row.id}>
                             <TableCell>{row.levelName}</TableCell>
                             <TableCell>{row.likes}</TableCell>
@@ -145,13 +100,13 @@ export default function LevelsTable() {
 }
 
 const handleDownloadClicked = (levelId: number) => {
-    alert(`Starting download of level "${rows[levelId].levelName}"`);
+    alert(`Starting download of level "${levelRows[levelId].levelName}"`);
     // fetch level id from server
     // start download of .json file
 };
 
 const handleLikeClicked = (levelId: number) => {
-    alert(`Glad you like level "${rows[levelId].levelName}"`);
+    alert(`Glad you like level "${levelRows[levelId].levelName}"`);
     // send like to server
 };
 
