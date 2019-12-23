@@ -11,6 +11,9 @@ import GetAppIcon from "@material-ui/icons/GetApp";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
 import React from "react";
+import { connect } from "react-redux";
+import { testme } from "../redux/action-creators/testme";
+import { IState } from "../redux/store/IState";
 import { levelRows } from "./levels.data";
 import Title from "./Title";
 
@@ -27,8 +30,14 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function LevelsTable() {
+interface Props {
+    testme: () => void;
+}
+
+const LevelsTable: React.FunctionComponent<Props> = (props: Props) => {
     const classes = useStyles({});
+    console.log(testme);
+    props.testme();
 
     return (
         <Container maxWidth="md" className={classes.container}>
@@ -60,9 +69,10 @@ export default function LevelsTable() {
                             <TableCell>{row.gameVersion}</TableCell>
                             <TableCell>
                                 <GetAppIcon
-                                    onClick={() =>
-                                        handleDownloadClicked(row.id)
-                                    }
+                                    onClick={() => {
+                                        props.testme();
+                                        handleDownloadClicked(row.id);
+                                    }}
                                 />
                             </TableCell>
                             <TableCell>
@@ -97,7 +107,7 @@ export default function LevelsTable() {
             </Button>
         </Container>
     );
-}
+};
 
 const handleDownloadClicked = (levelId: number) => {
     alert(`Starting download of level "${levelRows[levelId].levelName}"`);
@@ -113,3 +123,14 @@ const handleLikeClicked = (levelId: number) => {
 const handleUploadClicked = () => {
     alert("Awesome. Thanks for sharing.");
 };
+
+const mapStateToProps = (state: IState) => state;
+
+const mapDispatchToProps: Pick<Props, "testme"> = {
+    testme,
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(LevelsTable);
