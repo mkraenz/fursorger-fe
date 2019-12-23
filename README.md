@@ -1,4 +1,6 @@
-# Next.js with TypeScript example
+# Fursorger-fe - Website for the Phaser 3 game Der Fursorger
+
+<https://zeit.co/mirco/fursorger-fe>
 
 ## How to use
 
