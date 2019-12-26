@@ -17,10 +17,9 @@ import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
 import React from "react";
 import { connect } from "react-redux";
-import { succeedFetchLevelMetadata } from "../redux/action-creators/succeedFetchLevelMetadata";
+import { fetchLevelMetadata } from "../redux/action-creators/fetchLevelMetadata";
 import { ILevelMetadata } from "../redux/store/ILevelMetadataState";
 import { IState } from "../redux/store/IState";
-import { levelRows } from "./levels.data";
 import { selectLevelMetadata } from "./selectors/selectLevelMetadata";
 import Title from "./Title";
 
@@ -40,12 +39,13 @@ const styles = (theme: Theme) =>
 
 interface Props extends WithStyles<typeof styles> {
     levelMetadata: ILevelMetadata[];
-    succeedFetchLevelMetadata: () => void;
+    fetchLevelMetadata: () => void;
 }
 
 class LevelsTable extends React.Component<Props> {
     componentDidMount() {
-        this.props.succeedFetchLevelMetadata();
+        // this.props.succeedFetchLevelMetadata();
+        this.props.fetchLevelMetadata();
     }
 
     render() {
@@ -80,14 +80,20 @@ class LevelsTable extends React.Component<Props> {
                                 <TableCell>
                                     <GetAppIcon
                                         onClick={() => {
-                                            handleDownloadClicked(row.id);
+                                            handleDownloadClicked(
+                                                row.id,
+                                                this.props.levelMetadata[row.id]
+                                            );
                                         }}
                                     />
                                 </TableCell>
                                 <TableCell>
                                     <ThumbUpAltOutlinedIcon
                                         onClick={() =>
-                                            handleLikeClicked(row.id)
+                                            handleLikeClicked(
+                                                row.id,
+                                                this.props.levelMetadata[row.id]
+                                            )
                                         }
                                     />
                                 </TableCell>
@@ -121,14 +127,22 @@ class LevelsTable extends React.Component<Props> {
     }
 }
 
-const handleDownloadClicked = (levelId: number) => {
-    alert(`Starting download of level "${levelRows[levelId].levelName}"`);
+const handleDownloadClicked = (
+    levelId: number,
+    metadata: { levelName: string }
+) => {
+    alert(
+        `Starting download of level "${metadata.levelName}" with id ${levelId}`
+    );
     // fetch level id from server
     // start download of .json file
 };
 
-const handleLikeClicked = (levelId: number) => {
-    alert(`Glad you like level "${levelRows[levelId].levelName}"`);
+const handleLikeClicked = (
+    levelId: number,
+    metadata: { levelName: string }
+) => {
+    alert(`Glad you like level "${metadata.levelName}" with id ${levelId}`);
     // send like to server
 };
 
@@ -140,8 +154,8 @@ const mapStateToProps = (state: IState): Pick<Props, "levelMetadata"> => ({
     levelMetadata: selectLevelMetadata(state),
 });
 
-const mapDispatchToProps: Pick<Props, "succeedFetchLevelMetadata"> = {
-    succeedFetchLevelMetadata,
+const mapDispatchToProps: Pick<Props, "fetchLevelMetadata"> = {
+    fetchLevelMetadata,
 };
 
 export default connect(
