@@ -1,6 +1,7 @@
 import { ActionCreator, Dispatch } from "redux";
 import { ThunkAction } from "redux-thunk";
 import { isArray } from "util";
+import { CONFIG } from "../../api-config";
 import { ILevelMetadataFetchSuccess } from "../actions/ILevelMetadataFetchSuccess";
 import { ILevelMetadata } from "../store/ILevelMetadataState";
 import { requestFetchLevelMetadata } from "./requestFetchLevelMetadata";
@@ -16,13 +17,10 @@ export const fetchLevelMetadata: ActionCreator<
 > = () => {
     return async (dispatch: Dispatch) => {
         dispatch(requestFetchLevelMetadata());
-        const levelsJson = await fetch(
-            "https://my-json-server.typicode.com/proSingularity/fursorger-fe/levels",
-            {
-                method: "GET",
-                redirect: "error",
-            }
-        );
+        const levelsJson = await fetch(CONFIG.levelsMetadataUri, {
+            method: "GET",
+            redirect: "error",
+        });
         const levelMetadata: ILevelMetadata[] = await levelsJson.json();
         if (!isArray(levelMetadata)) {
             throw new Error("fetched data for levelMetadata is not an array");

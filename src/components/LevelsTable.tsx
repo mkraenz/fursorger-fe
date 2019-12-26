@@ -9,17 +9,13 @@ import {
 } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import GetAppIcon from "@material-ui/icons/GetApp";
-import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
-import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
 import React from "react";
 import { connect } from "react-redux";
 import { fetchLevelMetadata } from "../redux/action-creators/fetchLevelMetadata";
 import { ILevelMetadata } from "../redux/store/ILevelMetadataState";
 import { IState } from "../redux/store/IState";
+import LevelsTableHead from "./LevelsTableHead";
+import LevelsTableRow from "./LevelsTableRow";
 import { selectLevelMetadata } from "./selectors/selectLevelMetadata";
 import Title from "./Title";
 
@@ -44,7 +40,6 @@ interface Props extends WithStyles<typeof styles> {
 
 class LevelsTable extends React.Component<Props> {
     componentDidMount() {
-        // this.props.succeedFetchLevelMetadata();
         this.props.fetchLevelMetadata();
     }
 
@@ -53,60 +48,10 @@ class LevelsTable extends React.Component<Props> {
             <Container maxWidth="md" className={this.props.classes.container}>
                 <Title>Levels</Title>
                 <Table size="small">
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>Name</TableCell>
-                            <TableCell>Likes</TableCell>
-                            <TableCell>Downloads</TableCell>
-                            <TableCell>Creator</TableCell>
-                            <TableCell>Uploaded</TableCell>
-                            <TableCell>Version</TableCell>
-                            <TableCell>Game version</TableCell>
-                            <TableCell>Get</TableCell>
-                            <TableCell>Like</TableCell>
-                            <TableCell>Play now</TableCell>
-                        </TableRow>
-                    </TableHead>
+                    <LevelsTableHead />
                     <TableBody>
                         {this.props.levelMetadata.map(row => (
-                            <TableRow key={row.id}>
-                                <TableCell>{row.levelName}</TableCell>
-                                <TableCell>{row.likes}</TableCell>
-                                <TableCell>{row.downloads}</TableCell>
-                                <TableCell>{row.uploader}</TableCell>
-                                <TableCell>{row.uploadDate}</TableCell>
-                                <TableCell>{row.version}</TableCell>
-                                <TableCell>{row.gameVersion}</TableCell>
-                                <TableCell>
-                                    <GetAppIcon
-                                        onClick={() => {
-                                            handleDownloadClicked(
-                                                row.id,
-                                                this.props.levelMetadata[row.id]
-                                            );
-                                        }}
-                                    />
-                                </TableCell>
-                                <TableCell>
-                                    <ThumbUpAltOutlinedIcon
-                                        onClick={() =>
-                                            handleLikeClicked(
-                                                row.id,
-                                                this.props.levelMetadata[row.id]
-                                            )
-                                        }
-                                    />
-                                </TableCell>
-                                <TableCell>
-                                    <PlayCircleOutlineIcon
-                                        onClick={() =>
-                                            alert(
-                                                "Instant play is not implemented yet. Thanks for your interest in this feature."
-                                            )
-                                        }
-                                    />
-                                </TableCell>
-                            </TableRow>
+                            <LevelsTableRow levelMetadata={row} />
                         ))}
                     </TableBody>
                 </Table>
@@ -126,25 +71,6 @@ class LevelsTable extends React.Component<Props> {
         );
     }
 }
-
-const handleDownloadClicked = (
-    levelId: number,
-    metadata: { levelName: string }
-) => {
-    alert(
-        `Starting download of level "${metadata.levelName}" with id ${levelId}`
-    );
-    // fetch level id from server
-    // start download of .json file
-};
-
-const handleLikeClicked = (
-    levelId: number,
-    metadata: { levelName: string }
-) => {
-    alert(`Glad you like level "${metadata.levelName}" with id ${levelId}`);
-    // send like to server
-};
 
 const handleUploadClicked = () => {
     alert("Awesome. Thanks for sharing.");
