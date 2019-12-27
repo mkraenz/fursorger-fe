@@ -50,7 +50,7 @@ const LevelsTableRow: React.FunctionComponent<Props> = (props: Props) => {
     );
 };
 
-const saveToFile = (metadata: ILevelMetadata) => {
+const saveToFile = (metadata: Pick<ILevelMetadata, "level" | "name">) => {
     const data = JSON.stringify(metadata.level, null, 4);
     const blob = new Blob([data], {
         type: "application/json",
