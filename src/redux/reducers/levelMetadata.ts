@@ -5,10 +5,14 @@ export const levelMetadataReducer = (
     state: ILevelMetadataState = [],
     action: ILevelMetadataAction
 ) => {
-    console.log(`reducer received ${action.type}`);
     switch (action.type) {
         case ActionType.LevelMetadataFetchSuccess:
             return action.payload.levelMetadata;
+        case ActionType.LevelMetadataLikeSuccess:
+            const changedLevel = action.payload.levelMetadata;
+            return state.map(item =>
+                item.id === changedLevel.id ? changedLevel : item
+            );
         default:
             return state;
     }

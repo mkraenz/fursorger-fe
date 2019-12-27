@@ -2,7 +2,7 @@ import { ILevelMetadata } from "../redux/store/ILevelMetadataState";
 
 const createDataRow = (
     id: number,
-    levelName: string,
+    name: string,
     likes: number,
     downloads: number,
     uploadDate: string,
@@ -11,7 +11,7 @@ const createDataRow = (
     version: number
 ): ILevelMetadata => ({
     id,
-    levelName,
+    name,
     likes,
     downloads,
     uploadDate,

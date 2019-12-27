@@ -2,7 +2,7 @@
     "levels": [
         {
             "id": 0,
-            "levelName": "Wesnoth",
+            "name": "Wesnoth",
             "likes": 5,
             "downloads": 7,
             "uploadDate": "19 Nov, 2019",
@@ -12,7 +12,7 @@
         },
         {
             "id": 1,
-            "levelName": "Brandenburg",
+            "name": "Brandenburg",
             "likes": 49,
             "downloads": 65,
             "uploadDate": "6 Dec, 2019",
@@ -22,13 +22,23 @@
         },
         {
             "id": 2,
-            "levelName": "My first Level",
+            "name": "My first Level",
             "likes": 0,
             "downloads": 1,
             "uploadDate": "21 Dec, 2019",
             "uploader": "Peter",
             "gameVersion": "1.5.3",
             "version": 1
+        },
+        {
+            "id": 1,
+            "name": "super cool level",
+            "likes": 1,
+            "downloads": 2,
+            "created": "2019-12-26T12:32:07.911Z",
+            "lastUpdate": "2019-12-26T17:45:01.413Z",
+            "version": 4,
+            "uploader": "Peter"
         }
     ]
 }

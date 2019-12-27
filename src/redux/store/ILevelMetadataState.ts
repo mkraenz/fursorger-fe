@@ -1,6 +1,6 @@
 export interface ILevelMetadata {
     id: number;
-    levelName: string;
+    name: string;
     likes: number;
     downloads: number;
     uploadDate: string;
