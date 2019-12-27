@@ -36,10 +36,11 @@ const Contact: React.FunctionComponent = () => {
                     subheaderTypographyProps={{
                         align: "center",
                     }}
+                    subheader="fursorger.game@gmail.com"
                     className={classes.cardHeader}
                 />
                 <CardContent>
-                    <Typography>
+                    <Typography align="center">
                         Please send us any questions or feedback. We are glad to
                         help you and you also help us by asking.
                     </Typography>
