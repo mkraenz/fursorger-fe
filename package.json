@@ -7,6 +7,7 @@
         "@material-ui/icons": "^4.5.1",
         "@types/redux-thunk": "^2.1.0",
         "clsx": "latest",
+        "file-saver": "^2.0.2",
         "next": "latest",
         "next-redux-wrapper": "^4.0.1",
         "react": "latest",
@@ -23,6 +24,7 @@
         "start": "next start"
     },
     "devDependencies": {
+        "@types/file-saver": "^2.0.1",
         "@types/next": "latest",
         "@types/node": "^12.12.21",
         "@types/react": "latest",

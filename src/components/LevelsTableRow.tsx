@@ -4,6 +4,7 @@ import TableRow from "@material-ui/core/TableRow";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
+import { saveAs } from "file-saver";
 import React from "react";
 import { connect } from "react-redux";
 import { sendLikeLevel } from "../redux/action-creators/sendLikeLevel";
@@ -23,14 +24,9 @@ const LevelsTableRow: React.FunctionComponent<Props> = (props: Props) => {
             <TableCell>{metadata.downloads}</TableCell>
             <TableCell>{metadata.uploader}</TableCell>
             <TableCell>{metadata.uploadDate}</TableCell>
-            <TableCell>{metadata.version}</TableCell>
             <TableCell>{metadata.gameVersion}</TableCell>
             <TableCell>
-                <IconButton
-                    onClick={() => {
-                        handleDownloadClicked(metadata.id, metadata);
-                    }}
-                >
+                <IconButton onClick={() => saveToFile(metadata)}>
                     <GetAppIcon />
                 </IconButton>
             </TableCell>
@@ -54,10 +50,12 @@ const LevelsTableRow: React.FunctionComponent<Props> = (props: Props) => {
     );
 };
 
-const handleDownloadClicked = (levelId: number, metadata: { name: string }) => {
-    alert(`Starting download of level "${metadata.name}" with id ${levelId}`);
-    // fetch level id from server
-    // start download of .json file
+const saveToFile = (metadata: ILevelMetadata) => {
+    const data = JSON.stringify(metadata.level, null, 4);
+    const blob = new Blob([data], {
+        type: "application/json",
+    });
+    saveAs(blob, `${metadata.name}.fursorger.json`);
 };
 
 const mapDispatchToProps: Pick<Props, "sendLikeLevel"> = {

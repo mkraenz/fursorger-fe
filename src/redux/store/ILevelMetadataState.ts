@@ -7,6 +7,7 @@ export interface ILevelMetadata {
     uploader: string;
     gameVersion: string;
     version: number;
+    level: {};
 }
 
 export type ILevelMetadataState = ILevelMetadata[];

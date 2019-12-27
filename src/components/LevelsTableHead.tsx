@@ -11,7 +11,6 @@ const LevelsTableHead: React.FunctionComponent = () => (
             <TableCell>Downloads</TableCell>
             <TableCell>Creator</TableCell>
             <TableCell>Uploaded</TableCell>
-            <TableCell>Version</TableCell>
             <TableCell>Game version</TableCell>
             <TableCell>Get</TableCell>
             <TableCell>Like</TableCell>
