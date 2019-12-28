@@ -58,7 +58,7 @@ const Game: React.FunctionComponent = () => {
                     <Iframe
                         url={GAME_URL}
                         width="100%"
-                        height={loading ? "0" : "700"}
+                        height={loading ? "0" : "620"}
                         id="fursorger-phaser-game"
                         className={classes.iframe}
                         onLoad={() => setLoading(false)}
