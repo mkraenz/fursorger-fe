@@ -8,7 +8,7 @@ export const toTableData = (
         name: unparsed.name,
         likes: unparsed.likes,
         downloads: unparsed.downloads,
-        uploadDate: new Date(unparsed.created).toLocaleDateString(),
+        uploadDate: toMMDDCommaYYYY(unparsed.created),
         uploader: unparsed.uploader,
         gameVersion: "1.0.0",
         version: unparsed.version,
@@ -49,4 +49,15 @@ export const assertIsLevelDataFromServer = (
 
 const isString = (x: unknown): x is string => {
     return typeof x === "string";
+};
+
+const toMMDDCommaYYYY = (dateStr: string) => {
+    return new Date(dateStr)
+        .toDateString()
+        .split(" ")
+        .reduce(
+            (acc, val, i) =>
+                i === 0 ? acc : i === 2 ? `${acc} ${val},` : `${acc} ${val}`,
+            ""
+        );
 };
