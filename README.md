@@ -1,6 +1,7 @@
 # Fursorger-fe - Website for the Phaser 3 game Der Fursorger
 
-<https://zeit.co/mirco/fursorger-fe>
+- [Zeit.co Dashboard](https://zeit.co/mirco/fursorger-fe)
+- [EmailJS Dashboard](https://dashboard.emailjs.com/)
 
 ## How to use
 

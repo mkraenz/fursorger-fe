@@ -5,6 +5,7 @@ import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import React from "react";
+import ContactForm from "./ContactForm";
 
 const useStyles = makeStyles(theme => ({
     cardHeader: {
@@ -44,6 +45,7 @@ const Contact: React.FunctionComponent = () => {
                         Please send us any questions or feedback. We are glad to
                         help you and you also help us by asking.
                     </Typography>
+                    <ContactForm />
                 </CardContent>
             </Card>
         </Container>
