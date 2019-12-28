@@ -13,6 +13,7 @@ import { ILevelMetadata } from "../redux/store/ILevelMetadataState";
 interface Props {
     levelMetadata: ILevelMetadata;
     sendLikeLevel: (levelId: number) => void;
+    sendDownloadLevel: (levelId: number) => void;
 }
 
 const LevelsTableRow: React.FunctionComponent<Props> = (props: Props) => {
@@ -26,7 +27,12 @@ const LevelsTableRow: React.FunctionComponent<Props> = (props: Props) => {
             <TableCell>{metadata.uploadDate}</TableCell>
             <TableCell>{metadata.gameVersion}</TableCell>
             <TableCell>
-                <IconButton onClick={() => saveToFile(metadata)}>
+                <IconButton
+                    onClick={() => {
+                        props.sendDownloadLevel(metadata.id);
+                        saveToFile(metadata);
+                    }}
+                >
                     <GetAppIcon />
                 </IconButton>
             </TableCell>
@@ -58,8 +64,9 @@ const saveToFile = (metadata: Pick<ILevelMetadata, "level" | "name">) => {
     saveAs(blob, `${metadata.name}.fursorger.json`);
 };
 
-const mapDispatchToProps: Pick<Props, "sendLikeLevel"> = {
-    sendLikeLevel: sendUpdateLevelMetadata,
+const mapDispatchToProps: Pick<Props, "sendLikeLevel" | "sendDownloadLevel"> = {
+    sendLikeLevel: sendUpdateLevelMetadata({ like: true }),
+    sendDownloadLevel: sendUpdateLevelMetadata({ download: true }),
 };
 
 export default connect(

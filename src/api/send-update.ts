@@ -1,4 +1,5 @@
 import pickBy from "lodash.pickby";
+import { ILevelUpdate } from "../redux/actions/ILevelMetadataUpdateRequest";
 import { CONFIG } from "./config";
 import {
     assertIsLevelDataFromServer,
@@ -8,10 +9,10 @@ import {
 
 export const updateLevelMetadata = async (
     levelId: number,
-    update: IUpdateLevel
+    update: ILevelUpdate
 ) => {
     // avoid sending additional properties because of interfaces being open for extension
-    const payload: IUpdateLevel = toExactUpdatePayload(update);
+    const payload = toExactUpdatePayload(update);
     const levelsJson = await fetch(`${CONFIG.levelsMetadataUri}/${levelId}`, {
         method: "PATCH",
         redirect: "error",
@@ -26,13 +27,13 @@ export const updateLevelMetadata = async (
     return toTableData(unparsedMetadata);
 };
 
-interface IUpdateLevel {
+interface IUpdateLevelForServer {
     like?: true;
     download?: true;
 }
 
-function toExactUpdatePayload(update: IUpdateLevel): IUpdateLevel {
-    const validKeys: (keyof IUpdateLevel)[] = ["download", "like"];
+function toExactUpdatePayload(update: ILevelUpdate): IUpdateLevelForServer {
+    const validKeys: (keyof ILevelUpdate)[] = ["download", "like"];
     const payload = pickBy(
         update,
         (val, key) => val && validKeys.includes(key as any)
