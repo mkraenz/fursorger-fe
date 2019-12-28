@@ -1,11 +1,11 @@
 import { ActionType } from "../actions/ActionType";
-import { ILevelMetadataLikeSuccess } from "../actions/ILevelMetadataLikeSuccess";
+import { ILevelMetadataUpdateSuccess } from "../actions/ILevelMetadataLikeSuccess";
 import { ILevelMetadata } from "../store/ILevelMetadataState";
 
-export const succeedLikeLevelMetadata = (
+export const succeedUpdateLevelMetadata = (
     levelMetadata: ILevelMetadata
-): ILevelMetadataLikeSuccess => ({
-    type: ActionType.LevelMetadataLikeSuccess,
+): ILevelMetadataUpdateSuccess => ({
+    type: ActionType.LevelMetadataUpdateSuccess,
     payload: {
         levelMetadata,
     },

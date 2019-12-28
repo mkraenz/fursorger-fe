@@ -1,6 +1,6 @@
 import { ActionType } from "../actions/ActionType";
-import { ILevelMetadataLikeRequest } from "../actions/ILevelMetadataLikeRequest";
+import { ILevelMetadataUpdateRequest } from "../actions/ILevelMetadataLikeRequest";
 
-export const requestLikeLevelMetadata = (): ILevelMetadataLikeRequest => ({
-    type: ActionType.LevelMetadataLikeRequest,
+export const requestUpdateLevelMetadata = (): ILevelMetadataUpdateRequest => ({
+    type: ActionType.LevelMetadataUpdateRequest,
 });

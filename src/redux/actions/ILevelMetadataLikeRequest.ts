@@ -1,5 +1,5 @@
 import { ActionType } from "./ActionType";
 
-export interface ILevelMetadataLikeRequest {
-    type: ActionType.LevelMetadataLikeRequest;
+export interface ILevelMetadataUpdateRequest {
+    type: ActionType.LevelMetadataUpdateRequest;
 }

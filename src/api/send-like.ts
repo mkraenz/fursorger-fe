@@ -1,3 +1,4 @@
+import pickBy from "lodash.pickby";
 import { CONFIG } from "./config";
 import {
     assertIsLevelDataFromServer,
@@ -5,7 +6,12 @@ import {
     toTableData,
 } from "./server-level-metadata";
 
-export const sendLike = async (levelId: number) => {
+export const updateLevelMetadata = async (
+    levelId: number,
+    update: IUpdateLevel
+) => {
+    // avoid sending additional properties because of interfaces being open for extension
+    const payload: IUpdateLevel = toExactUpdatePayload(update);
     const levelsJson = await fetch(`${CONFIG.levelsMetadataUri}/${levelId}`, {
         method: "PATCH",
         redirect: "error",
@@ -13,9 +19,23 @@ export const sendLike = async (levelId: number) => {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ like: true }),
+        body: JSON.stringify(payload),
     });
-    const unparsedArr: ILevelMetadataFromServer = await levelsJson.json();
-    assertIsLevelDataFromServer(unparsedArr);
-    return toTableData(unparsedArr);
+    const unparsedMetadata: ILevelMetadataFromServer = await levelsJson.json();
+    assertIsLevelDataFromServer(unparsedMetadata);
+    return toTableData(unparsedMetadata);
 };
+
+interface IUpdateLevel {
+    like?: true;
+    download?: true;
+}
+
+function toExactUpdatePayload(update: IUpdateLevel): IUpdateLevel {
+    const validKeys: (keyof IUpdateLevel)[] = ["download", "like"];
+    const payload = pickBy(
+        update,
+        (val, key) => val && validKeys.includes(key as any)
+    );
+    return payload;
+}

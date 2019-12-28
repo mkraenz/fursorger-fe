@@ -8,6 +8,7 @@
         "@types/redux-thunk": "^2.1.0",
         "clsx": "latest",
         "file-saver": "^2.0.2",
+        "lodash.pickby": "^4.6.0",
         "next": "latest",
         "next-redux-wrapper": "^4.0.1",
         "react": "latest",
@@ -25,6 +26,7 @@
     },
     "devDependencies": {
         "@types/file-saver": "^2.0.1",
+        "@types/lodash.pickby": "^4.6.6",
         "@types/next": "latest",
         "@types/node": "^12.12.21",
         "@types/react": "latest",

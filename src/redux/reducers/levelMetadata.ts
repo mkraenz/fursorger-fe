@@ -8,7 +8,7 @@ export const levelMetadataReducer = (
     switch (action.type) {
         case ActionType.LevelMetadataFetchSuccess:
             return action.payload.levelMetadata;
-        case ActionType.LevelMetadataLikeSuccess:
+        case ActionType.LevelMetadataUpdateSuccess:
             const changedLevel = action.payload.levelMetadata;
             return state.map(item =>
                 item.id === changedLevel.id ? changedLevel : item

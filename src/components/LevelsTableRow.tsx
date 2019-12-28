@@ -7,7 +7,7 @@ import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
 import { saveAs } from "file-saver";
 import React from "react";
 import { connect } from "react-redux";
-import { sendLikeLevel } from "../redux/action-creators/sendLikeLevel";
+import { sendUpdateLevelMetadata } from "../redux/action-creators/sendLikeLevel";
 import { ILevelMetadata } from "../redux/store/ILevelMetadataState";
 
 interface Props {
@@ -59,7 +59,7 @@ const saveToFile = (metadata: Pick<ILevelMetadata, "level" | "name">) => {
 };
 
 const mapDispatchToProps: Pick<Props, "sendLikeLevel"> = {
-    sendLikeLevel,
+    sendLikeLevel: sendUpdateLevelMetadata,
 };
 
 export default connect(
