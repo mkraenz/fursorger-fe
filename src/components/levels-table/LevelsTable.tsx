@@ -12,12 +12,12 @@ import TableBody from "@material-ui/core/TableBody";
 import React from "react";
 import { connect } from "react-redux";
 import { fetchLevelMetadata } from "../../redux/action-creators/fetchLevelMetadata";
+import { selectLevelMetadata } from "../../redux/selectors/selectLevelMetadata";
 import { ILevelMetadata } from "../../redux/store/ILevelMetadataState";
 import { IState } from "../../redux/store/IState";
+import Title from "../Title";
 import LevelsTableHead from "./LevelsTableHead";
 import LevelsTableRow from "./LevelsTableRow";
-import { selectLevelMetadata } from "../../redux/selectors/selectLevelMetadata";
-import Title from "../Title";
 
 function preventDefault(event: { preventDefault: () => void }) {
     event.preventDefault();
@@ -38,9 +38,20 @@ interface Props extends WithStyles<typeof styles> {
     fetchLevelMetadata: () => void;
 }
 
-class LevelsTable extends React.Component<Props> {
+class LevelsTable extends React.Component<Props, { onXs: boolean }> {
+    constructor(props: Props) {
+        super(props);
+        this.state = { onXs: false };
+    }
+
     componentDidMount() {
         this.props.fetchLevelMetadata();
+        window.addEventListener("resize", () => this.resize());
+        this.resize();
+    }
+
+    resize() {
+        this.setState({ onXs: window.innerWidth <= 760 });
     }
 
     render() {
@@ -48,10 +59,13 @@ class LevelsTable extends React.Component<Props> {
             <Container maxWidth="md" className={this.props.classes.container}>
                 <Title>Levels</Title>
                 <Table size="small">
-                    <LevelsTableHead />
+                    <LevelsTableHead onXs={this.state.onXs} />
                     <TableBody>
                         {this.props.levelMetadata.map(row => (
-                            <LevelsTableRow levelMetadata={row} />
+                            <LevelsTableRow
+                                levelMetadata={row}
+                                onXs={this.state.onXs}
+                            />
                         ))}
                     </TableBody>
                 </Table>

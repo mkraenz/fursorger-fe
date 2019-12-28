@@ -12,12 +12,37 @@ import LikeButton from "./LikeButton";
 
 interface Props {
     levelMetadata: ILevelMetadata;
+    onXs: boolean;
     sendLikeLevel: (levelId: number) => void;
     sendDownloadLevel: (levelId: number) => void;
 }
 
 const LevelsTableRow: React.FunctionComponent<Props> = (props: Props) => {
     const metadata = props.levelMetadata;
+
+    if (props.onXs) {
+        return (
+            <TableRow key={metadata.id}>
+                <TableCell>{metadata.name}</TableCell>
+                <TableCell>
+                    <LikeButton
+                        likes={metadata.likes}
+                        onClick={() => props.sendLikeLevel(metadata.id)}
+                    />
+                </TableCell>
+                <TableCell>
+                    <DownloadButton
+                        downloads={metadata.downloads}
+                        onClick={() => {
+                            props.sendDownloadLevel(metadata.id);
+                            saveToFile(metadata);
+                        }}
+                    />
+                </TableCell>
+            </TableRow>
+        );
+    }
+
     return (
         <TableRow key={metadata.id}>
             <TableCell>{metadata.name}</TableCell>
