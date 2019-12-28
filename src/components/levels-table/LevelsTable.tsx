@@ -1,4 +1,7 @@
 import Button from "@material-ui/core/Button";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import CardHeader from "@material-ui/core/CardHeader";
 import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
 import {
@@ -15,7 +18,6 @@ import { fetchLevelMetadata } from "../../redux/action-creators/fetchLevelMetada
 import { selectLevelMetadata } from "../../redux/selectors/selectLevelMetadata";
 import { ILevelMetadata } from "../../redux/store/ILevelMetadataState";
 import { IState } from "../../redux/store/IState";
-import Title from "../Title";
 import LevelsTableHead from "./LevelsTableHead";
 import LevelsTableRow from "./LevelsTableRow";
 
@@ -25,11 +27,21 @@ function preventDefault(event: { preventDefault: () => void }) {
 
 const styles = (theme: Theme) =>
     createStyles({
-        seeMore: {
-            marginTop: theme.spacing(3),
+        cardHeader: {
+            backgroundColor:
+                theme.palette.type === "dark"
+                    ? theme.palette.grey[700]
+                    : theme.palette.grey[200],
         },
         container: {
             marginTop: theme.spacing(15),
+        },
+        seeMore: {
+            marginTop: theme.spacing(3),
+            marginLeft: theme.spacing(2),
+        },
+        uploadLevel: {
+            margin: theme.spacing(3, 0, 2),
         },
     });
 
@@ -57,30 +69,52 @@ class LevelsTable extends React.Component<Props, { onXs: boolean }> {
     render() {
         return (
             <Container maxWidth="md" className={this.props.classes.container}>
-                <Title>Levels</Title>
-                <Table size="small">
-                    <LevelsTableHead onXs={this.state.onXs} />
-                    <TableBody>
-                        {this.props.levelMetadata.map(row => (
-                            <LevelsTableRow
-                                levelMetadata={row}
-                                onXs={this.state.onXs}
-                            />
-                        ))}
-                    </TableBody>
-                </Table>
-                <div className={this.props.classes.seeMore}>
-                    <Link color="primary" href="#" onClick={preventDefault}>
-                        See more levels
-                    </Link>
-                </div>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleUploadClicked}
-                >
-                    Share Level
-                </Button>
+                <Card>
+                    <CardHeader
+                        title="Levels"
+                        titleTypographyProps={{ align: "center" }}
+                        className={this.props.classes.cardHeader}
+                    />
+                    <CardContent
+                        style={{
+                            marginLeft: "0px",
+                            paddingLeft: "0px",
+                            paddingRight: "0px",
+                        }}
+                    >
+                        <Table size="small">
+                            <LevelsTableHead onXs={this.state.onXs} />
+                            <TableBody>
+                                {this.props.levelMetadata.map(row => (
+                                    <LevelsTableRow
+                                        levelMetadata={row}
+                                        onXs={this.state.onXs}
+                                    />
+                                ))}
+                            </TableBody>
+                        </Table>
+                        <div className={this.props.classes.seeMore}>
+                            <Link
+                                color="primary"
+                                href="#"
+                                onClick={preventDefault}
+                            >
+                                See more levels
+                            </Link>
+                        </div>
+                        <Container maxWidth="xs">
+                            <Button
+                                variant="contained"
+                                fullWidth
+                                color="primary"
+                                onClick={handleUploadClicked}
+                                className={this.props.classes.uploadLevel}
+                            >
+                                Share your own Level
+                            </Button>
+                        </Container>
+                    </CardContent>
+                </Card>
             </Container>
         );
     }
