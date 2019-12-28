@@ -5,7 +5,7 @@ import Footer from "../src/components/Footer";
 import Game from "../src/components/Game";
 import Header from "../src/components/Header";
 import HeroUnit from "../src/components/HeroUnit";
-import LevelsTable from "../src/components/LevelsTable";
+import LevelsTable from "../src/components/levels-table/LevelsTable";
 
 export default function Index() {
     return (

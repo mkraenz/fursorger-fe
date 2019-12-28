@@ -1,14 +1,14 @@
 import IconButton from "@material-ui/core/IconButton";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
-import GetAppIcon from "@material-ui/icons/GetApp";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
-import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
 import { saveAs } from "file-saver";
 import React from "react";
 import { connect } from "react-redux";
-import { sendUpdateLevelMetadata } from "../redux/action-creators/sendUpdateLevel";
-import { ILevelMetadata } from "../redux/store/ILevelMetadataState";
+import { sendUpdateLevelMetadata } from "../../redux/action-creators/sendUpdateLevel";
+import { ILevelMetadata } from "../../redux/store/ILevelMetadataState";
+import DownloadButton from "./DownloadButton";
+import LikeButton from "./LikeButton";
 
 interface Props {
     levelMetadata: ILevelMetadata;
@@ -21,26 +21,24 @@ const LevelsTableRow: React.FunctionComponent<Props> = (props: Props) => {
     return (
         <TableRow key={metadata.id}>
             <TableCell>{metadata.name}</TableCell>
-            <TableCell>{metadata.likes}</TableCell>
-            <TableCell>{metadata.downloads}</TableCell>
-            <TableCell>{metadata.uploader}</TableCell>
-            <TableCell>{metadata.uploadDate}</TableCell>
-            <TableCell>{metadata.gameVersion}</TableCell>
             <TableCell>
-                <IconButton
+                <LikeButton
+                    likes={metadata.likes}
+                    onClick={() => props.sendLikeLevel(metadata.id)}
+                />
+            </TableCell>
+            <TableCell>
+                <DownloadButton
+                    downloads={metadata.downloads}
                     onClick={() => {
                         props.sendDownloadLevel(metadata.id);
                         saveToFile(metadata);
                     }}
-                >
-                    <GetAppIcon />
-                </IconButton>
+                />
             </TableCell>
-            <TableCell>
-                <IconButton onClick={() => props.sendLikeLevel(metadata.id)}>
-                    <ThumbUpAltOutlinedIcon />
-                </IconButton>
-            </TableCell>
+            <TableCell>{metadata.uploader}</TableCell>
+            <TableCell>{metadata.uploadDate}</TableCell>
+            <TableCell>{metadata.gameVersion}</TableCell>
             <TableCell>
                 <IconButton
                     onClick={() =>
