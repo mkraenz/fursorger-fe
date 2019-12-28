@@ -1,9 +1,9 @@
 import { ActionCreator, Dispatch } from "redux";
 import { ThunkAction } from "redux-thunk";
-import { updateLevelMetadata } from "../../api/send-like";
-import { ILevelMetadataUpdateSuccess } from "../actions/ILevelMetadataLikeSuccess";
-import { requestUpdateLevelMetadata } from "./requestLikeLevelMetadata";
-import { succeedUpdateLevelMetadata } from "./succeedLikeLevelMetadata";
+import { updateLevelMetadata } from "../../api/send-update";
+import { ILevelMetadataUpdateSuccess } from "../actions/ILevelMetadataUpdateSuccess";
+import { requestUpdateLevelMetadata } from "./requestUpdateLevelMetadata";
+import { succeedUpdateLevelMetadata } from "./succeedUpdateLevelMetadata";
 
 export const sendUpdateLevelMetadata: ActionCreator<
     ThunkAction<

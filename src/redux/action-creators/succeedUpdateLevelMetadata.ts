@@ -1,5 +1,5 @@
 import { ActionType } from "../actions/ActionType";
-import { ILevelMetadataUpdateSuccess } from "../actions/ILevelMetadataLikeSuccess";
+import { ILevelMetadataUpdateSuccess } from "../actions/ILevelMetadataUpdateSuccess";
 import { ILevelMetadata } from "../store/ILevelMetadataState";
 
 export const succeedUpdateLevelMetadata = (

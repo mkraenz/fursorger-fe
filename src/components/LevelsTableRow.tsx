@@ -7,7 +7,7 @@ import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
 import { saveAs } from "file-saver";
 import React from "react";
 import { connect } from "react-redux";
-import { sendUpdateLevelMetadata } from "../redux/action-creators/sendLikeLevel";
+import { sendUpdateLevelMetadata } from "../redux/action-creators/sendUpdateLevel";
 import { ILevelMetadata } from "../redux/store/ILevelMetadataState";
 
 interface Props {

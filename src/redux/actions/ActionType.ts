@@ -1,7 +1,7 @@
 import { ILevelMetadataFetchRequest } from "./ILevelMetadataFetchRequest";
 import { ILevelMetadataFetchSuccess } from "./ILevelMetadataFetchSuccess";
-import { ILevelMetadataUpdateRequest } from "./ILevelMetadataLikeRequest";
-import { ILevelMetadataUpdateSuccess } from "./ILevelMetadataLikeSuccess";
+import { ILevelMetadataUpdateRequest } from "./ILevelMetadataUpdateRequest";
+import { ILevelMetadataUpdateSuccess } from "./ILevelMetadataUpdateSuccess";
 
 export enum ActionType {
     TestMe = "TEST_ME",
