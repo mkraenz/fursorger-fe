@@ -16,7 +16,7 @@ import { ILevelMetadata } from "../redux/store/ILevelMetadataState";
 import { IState } from "../redux/store/IState";
 import LevelsTableHead from "./LevelsTableHead";
 import LevelsTableRow from "./LevelsTableRow";
-import { selectLevelMetadata } from "./selectors/selectLevelMetadata";
+import { selectLevelMetadata } from "../redux/selectors/selectLevelMetadata";
 import Title from "./Title";
 
 function preventDefault(event: { preventDefault: () => void }) {
