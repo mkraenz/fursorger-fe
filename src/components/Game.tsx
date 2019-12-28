@@ -16,14 +16,11 @@ const useStyles = makeStyles(theme => ({
                 ? theme.palette.grey[700]
                 : theme.palette.grey[200],
     },
-    cardPricing: {
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "baseline",
-        marginBottom: theme.spacing(2),
-    },
     iframe: {
         border: "none",
+        width: "100%",
+        marginTop: "15px",
+        marginLeft: "22px",
     },
     loadingIndicator: {
         justifyContent: "center",
@@ -57,7 +54,6 @@ const Game: React.FunctionComponent = () => {
                     </div>
                     <Iframe
                         url={GAME_URL}
-                        width="100%"
                         height={loading ? "0" : "620"}
                         id="fursorger-phaser-game"
                         className={classes.iframe}
