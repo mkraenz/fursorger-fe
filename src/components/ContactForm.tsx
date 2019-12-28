@@ -116,7 +116,5 @@ const sendEmail = async (
             console.log("email sending failed", err, err.message);
         }
     );
-    alert(
-        `Thanks for your email, ${name}.\nEmail: ${email}\nmessage ${message}`
-    );
+    alert(`Email sending successful! Thanks for your email, ${name}.`);
 };

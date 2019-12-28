@@ -32,12 +32,11 @@ const Game: React.FunctionComponent = () => {
     const classes = useStyles({});
     const [loading, setLoading] = useState(true);
 
-    const title = "Instant Play";
     return (
         <Container maxWidth="md" component="main">
             <Card>
                 <CardHeader
-                    title={title}
+                    title="Instant Play"
                     titleTypographyProps={{ align: "center" }}
                     subheaderTypographyProps={{
                         align: "center",
