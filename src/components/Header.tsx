@@ -1,5 +1,6 @@
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
+import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -30,50 +31,52 @@ const Header: React.FunctionComponent = () => {
             elevation={0}
             className={classes.appBar}
         >
-            <Toolbar className={classes.toolbar}>
-                <Typography
-                    variant="h6"
-                    color="inherit"
-                    noWrap
-                    className={classes.toolbarTitle}
-                >
-                    Fursorger
-                </Typography>
-                <nav>
-                    <Link
-                        variant="button"
-                        color="textPrimary"
+            <Container maxWidth="md">
+                <Toolbar className={classes.toolbar}>
+                    <Typography
+                        variant="h6"
+                        color="inherit"
+                        noWrap
+                        className={classes.toolbarTitle}
+                    >
+                        Fursorger
+                    </Typography>
+                    <nav>
+                        <Link
+                            variant="button"
+                            color="textPrimary"
+                            href="#"
+                            className={classes.link}
+                        >
+                            Features
+                        </Link>
+                        <Link
+                            variant="button"
+                            color="textPrimary"
+                            href="#"
+                            className={classes.link}
+                        >
+                            Enterprise
+                        </Link>
+                        <Link
+                            variant="button"
+                            color="textPrimary"
+                            href="#"
+                            className={classes.link}
+                        >
+                            Support
+                        </Link>
+                    </nav>
+                    <Button
                         href="#"
+                        color="primary"
+                        variant="outlined"
                         className={classes.link}
                     >
-                        Features
-                    </Link>
-                    <Link
-                        variant="button"
-                        color="textPrimary"
-                        href="#"
-                        className={classes.link}
-                    >
-                        Enterprise
-                    </Link>
-                    <Link
-                        variant="button"
-                        color="textPrimary"
-                        href="#"
-                        className={classes.link}
-                    >
-                        Support
-                    </Link>
-                </nav>
-                <Button
-                    href="#"
-                    color="primary"
-                    variant="outlined"
-                    className={classes.link}
-                >
-                    Login
-                </Button>
-            </Toolbar>
+                        Login
+                    </Button>
+                </Toolbar>
+            </Container>
         </AppBar>
     );
 };
