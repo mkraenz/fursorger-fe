@@ -4,6 +4,7 @@ import withRedux from "next-redux-wrapper";
 import App from "next/app";
 import Head from "next/head";
 import React from "react";
+import ReactGA from "react-ga";
 import { Provider } from "react-redux";
 import { makeStore } from "../src/redux/store";
 import theme from "../src/theme";
@@ -15,6 +16,11 @@ class MyApp extends App<{ store: ReturnType<typeof makeStore> }> {
         if (jssStyles) {
             jssStyles.parentElement!.removeChild(jssStyles);
         }
+        // avoid google-analytics inclusion in dev
+        if (window.location.hostname !== "localhost") {
+            ReactGA.initialize("UA-145441270-2");
+            ReactGA.pageview(window.location.pathname + window.location.search);
+        }
     }
 
     render() {
@@ -24,6 +30,11 @@ class MyApp extends App<{ store: ReturnType<typeof makeStore> }> {
             <React.Fragment>
                 <Head>
                     <title>Fursorger Game</title>
+                    {process.browser && (
+                        <script type="text/javascript" id="inspectletjs">
+                            {initInspectlet() as any}
+                        </script>
+                    )}
                 </Head>
                 <Provider store={store}>
                     <ThemeProvider theme={theme}>
@@ -38,3 +49,30 @@ class MyApp extends App<{ store: ReturnType<typeof makeStore> }> {
 }
 
 export default withRedux(makeStore as any)(MyApp);
+
+const initInspectlet = () => {
+    // @ts-ignore
+    const window_: any = window;
+    window_.__insp = window_.__insp || [];
+    // @ts-ignore
+    __insp.push(["wid", 2004692989]);
+    (function() {
+        function __ldinsp() {
+            var insp = document.createElement("script");
+            insp.type = "text/javascript";
+            insp.async = true;
+            insp.id = "inspsync";
+            insp.src =
+                ("https:" == document.location.protocol ? "https" : "http") +
+                "://cdn.inspectlet.com/inspectlet.js?wid=2004692989&r=" +
+                Math.floor(new Date().getTime() / 3600000);
+            var x: any = document.getElementsByTagName("script")[0];
+            x.parentNode.insertBefore(insp, x);
+        }
+        document.readyState != "complete"
+            ? window_.attachEvent
+                ? window_.attachEvent("onload", __ldinsp)
+                : window_.addEventListener("load", __ldinsp, false)
+            : __ldinsp();
+    })();
+};
