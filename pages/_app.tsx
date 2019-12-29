@@ -17,10 +17,7 @@ class MyApp extends App<{ store: ReturnType<typeof makeStore> }> {
             jssStyles.parentElement!.removeChild(jssStyles);
         }
         // avoid google-analytics inclusion in dev
-        if (window.location.hostname !== "localhost") {
-            ReactGA.initialize("UA-145441270-2");
-            ReactGA.pageview(window.location.pathname + window.location.search);
-        }
+        initGoogleAnalytics();
     }
 
     render() {
@@ -30,7 +27,7 @@ class MyApp extends App<{ store: ReturnType<typeof makeStore> }> {
             <React.Fragment>
                 <Head>
                     <title>Fursorger Game</title>
-                    {process.browser && (
+                    {process.browser && notLocalhost && (
                         <script type="text/javascript" id="inspectletjs">
                             {initInspectlet() as any}
                         </script>
@@ -76,3 +73,11 @@ const initInspectlet = () => {
             : __ldinsp();
     })();
 };
+
+const notLocalhost = window.location.hostname !== "localhost";
+function initGoogleAnalytics() {
+    if (notLocalhost) {
+        ReactGA.initialize("UA-145441270-2");
+        ReactGA.pageview(window.location.pathname + window.location.search);
+    }
+}

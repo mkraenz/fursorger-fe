@@ -2,8 +2,9 @@
 
 - [Zeit.co Dashboard](https://zeit.co/mirco/fursorger-fe)
 - [EmailJS Dashboard](https://dashboard.emailjs.com/)
+- [Inspectlet Dashboard](https://www.inspectlet.com/dashboard)
 
-## How to use
+## How to use the original boilerplate
 
 Download the example [or clone the repo](https://github.com/mui-org/material-ui):
 
