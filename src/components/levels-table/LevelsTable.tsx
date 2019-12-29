@@ -15,9 +15,11 @@ import TableBody from "@material-ui/core/TableBody";
 import React from "react";
 import { connect } from "react-redux";
 import { fetchLevelMetadata } from "../../redux/action-creators/fetchLevelMetadata";
+import { toggleLevelUploadDialog } from "../../redux/action-creators/toggleLevelUploadDialog";
 import { selectLevelMetadata } from "../../redux/selectors/selectLevelMetadata";
 import { ILevelMetadata } from "../../redux/store/ILevelMetadataState";
 import { IState } from "../../redux/store/IState";
+import UploadLevelFormDialog from "../UploadLevelFormDialog";
 import LevelsTableHead from "./LevelsTableHead";
 import LevelsTableRow from "./LevelsTableRow";
 
@@ -40,7 +42,7 @@ const styles = (theme: Theme) =>
             marginTop: theme.spacing(3),
             marginLeft: theme.spacing(2),
         },
-        uploadLevel: {
+        levelUpload: {
             margin: theme.spacing(3, 0, 2),
         },
     });
@@ -48,6 +50,7 @@ const styles = (theme: Theme) =>
 interface Props extends WithStyles<typeof styles> {
     levelMetadata: ILevelMetadata[];
     fetchLevelMetadata: () => void;
+    toggleLevelUploadDialog: () => void;
 }
 
 class LevelsTable extends React.Component<Props, { onXs: boolean }> {
@@ -107,29 +110,30 @@ class LevelsTable extends React.Component<Props, { onXs: boolean }> {
                                 variant="contained"
                                 fullWidth
                                 color="primary"
-                                onClick={handleUploadClicked}
-                                className={this.props.classes.uploadLevel}
+                                onClick={this.props.toggleLevelUploadDialog}
+                                className={this.props.classes.levelUpload}
                             >
                                 Share your own Level
                             </Button>
                         </Container>
                     </CardContent>
                 </Card>
+                <UploadLevelFormDialog />
             </Container>
         );
     }
 }
 
-const handleUploadClicked = () => {
-    alert("Awesome. Thanks for sharing.");
-};
-
 const mapStateToProps = (state: IState): Pick<Props, "levelMetadata"> => ({
     levelMetadata: selectLevelMetadata(state),
 });
 
-const mapDispatchToProps: Pick<Props, "fetchLevelMetadata"> = {
+const mapDispatchToProps: Pick<
+    Props,
+    "fetchLevelMetadata" | "toggleLevelUploadDialog"
+> = {
     fetchLevelMetadata,
+    toggleLevelUploadDialog,
 };
 
 export default connect(
