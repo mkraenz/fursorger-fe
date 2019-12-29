@@ -1,7 +1,18 @@
 {
-    "name": "nextjs-with-typescript",
-    "version": "4.0.0",
+    "name": "fursorger-fe",
+    "version": "1.0.0",
     "private": true,
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/proSingularity/fursorger-fe.git"
+    },
+    "author": "Mirco Kraenz",
+    "license": "UNLICENSED",
+    "scripts": {
+        "dev": "next",
+        "build": "next build",
+        "start": "next start"
+    },
     "dependencies": {
         "@material-ui/core": "4.8.0",
         "@material-ui/icons": "^4.5.1",
@@ -20,11 +31,6 @@
         "react-spinners": "^0.7.1",
         "redux": "^4.0.4",
         "redux-thunk": "^2.3.0"
-    },
-    "scripts": {
-        "dev": "next",
-        "build": "next build",
-        "start": "next start"
     },
     "devDependencies": {
         "@types/file-saver": "^2.0.1",
