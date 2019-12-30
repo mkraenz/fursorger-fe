@@ -7,7 +7,9 @@
             "name": "Next: Chrome",
             "url": "http://localhost:3000",
             "sourceMaps": true,
-            "webRoot": "${workspaceFolder}"
+            "webRoot": "${workspaceFolder}",
+            "skipFiles": ["<node_internals>/**"],
+            "smartStep": true
         },
         {
             "type": "node",
@@ -16,7 +18,9 @@
             "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/next",
             "port": 9228,
             "sourceMaps": true,
-            "console": "integratedTerminal"
+            "console": "integratedTerminal",
+            "skipFiles": ["<node_internals>/**"],
+            "smartStep": true
         }
     ],
     "compounds": [

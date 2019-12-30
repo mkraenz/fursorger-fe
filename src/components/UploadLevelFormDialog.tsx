@@ -10,6 +10,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { uploadLevelWithMetadata } from "../api/upload-level-with-metadata";
+import { assertBasicLevelStructure } from "../api/upload-level-with-metadata-helpers";
 import { toggleLevelUploadDialog } from "../redux/action-creators/toggleLevelUploadDialog";
 import { IState } from "../redux/store/IState";
 
@@ -18,7 +19,7 @@ const useStyles = makeStyles(theme => ({
         margin: theme.spacing(1, 0, 2),
     },
     submit: {
-        margin: theme.spacing(3, 0, 2),
+        margin: theme.spacing(0, 1, 0, 0),
     },
     input: { display: "none" },
     button: { marginTop: theme.spacing(3) },
@@ -36,24 +37,16 @@ const UploadLevelFormDialog: React.FunctionComponent<Props> = props => {
     const [filepath, setFilepath] = useState("");
     const [fileContent, setFileContent] = useState("");
 
-    const handleSubmit = async () => {
-        await uploadLevelWithMetadata(levelName, username, fileContent);
-        // TODO
-        alert(fileContent);
-    };
     const handleCancel = props.toggleLevelUploadDialog;
     return (
-        <Dialog
-            open={props.open}
-            onClose={handleCancel}
-            aria-labelledby="form-dialog-title"
-        >
+        <Dialog open={props.open} onClose={handleCancel}>
             <DialogTitle id="form-dialog-title">
                 Share your own level
             </DialogTitle>
             <DialogContent>
                 <TextField
                     autoFocus
+                    required
                     id="level-name"
                     label="Level name"
                     fullWidth
@@ -64,6 +57,7 @@ const UploadLevelFormDialog: React.FunctionComponent<Props> = props => {
                 <Tooltip title="Display name for column 'creator'">
                     <TextField
                         id="user-name"
+                        required
                         label="Username"
                         fullWidth
                         className={classes.textField}
@@ -74,17 +68,30 @@ const UploadLevelFormDialog: React.FunctionComponent<Props> = props => {
                 <Grid container spacing={1} justify="space-evenly">
                     <input
                         accept=".json,application/json"
+                        required
                         className={classes.input}
                         id="upload-level-json-input"
                         multiple
                         type="file"
                         onChange={event => {
-                            handleFileSelect(event, setFileContent);
-                            setFilepath(event.target.value);
+                            const cb = (content: string, filePath: string) => {
+                                try {
+                                    assertBasicLevelStructure(content);
+                                    setFileContent(content);
+                                    setFilepath(filePath);
+                                } catch (error) {
+                                    alert(error.message);
+                                }
+                            };
+                            handleFileSelect(event, cb);
                         }}
                     />
                     <label htmlFor="upload-level-json-input">
-                        <Button component="span" className={classes.button}>
+                        <Button
+                            component="span"
+                            className={classes.button}
+                            variant="outlined"
+                        >
                             Upload file
                         </Button>
                     </label>
@@ -93,15 +100,23 @@ const UploadLevelFormDialog: React.FunctionComponent<Props> = props => {
                         disabled
                         label="Selected file"
                         className={classes.textField}
-                        value={getSelectedFileName(filepath)}
+                        value={
+                            getSelectedFileName(filepath) ||
+                            "Please select a .json file."
+                        }
                     />
                 </Grid>
             </DialogContent>
-            <DialogActions>
+            <DialogActions className={classes.submit}>
                 <Button onClick={handleCancel} color="primary">
                     Cancel
                 </Button>
-                <Button onClick={handleSubmit} color="primary">
+                <Button
+                    onClick={() =>
+                        handleSubmit(levelName, username, fileContent)
+                    }
+                    color="primary"
+                >
                     Share
                 </Button>
             </DialogActions>
@@ -137,15 +152,17 @@ const getSelectedFileName = (filepath: string) => {
     return filename;
 };
 
-function handleFileSelect(event: any, cb: (content: string) => void) {
+function handleFileSelect(
+    event: any,
+    cb: (content: string, event: any) => void
+) {
     const files = event.target.files; // FileList object
     const reader = new FileReader();
-    // Closure to capture the file information.
+    const fullFilePath = event.target.value; // save for putting into closure
     reader.onload = file => {
         try {
             const content = file.target!.result as string;
-            console.log(content);
-            cb(content);
+            cb(content, fullFilePath);
         } catch (err) {
             alert(
                 `Error when trying to parse file as JSON. Original error: ${
@@ -156,3 +173,63 @@ function handleFileSelect(event: any, cb: (content: string) => void) {
     };
     reader.readAsText(files[0]);
 }
+
+const handleSubmit = async (
+    levelName: string,
+    username: string,
+    fileContent: string
+) => {
+    if (levelName && username && fileContent) {
+        try {
+            await uploadLevelWithMetadata(
+                levelName,
+                username,
+                JSON.parse(fileContent) // works because we assert parsability on file selection
+            );
+            toggleLevelUploadDialog();
+        } catch (e) {
+            const error: Error = e;
+            if (error.message.match(/^Conflict/)) {
+                alert(error.message);
+                return;
+            }
+
+            const payload: {
+                property: string;
+                constraints?: {}[];
+                children?: {}[];
+            }[] = JSON.parse(error.message);
+            let message = `Error for '${serverKeysToTextfieldTitle(
+                payload[0].property
+            )}'. Constraint not satisfied:\n${replaceServerKeysByTextfieldTitle(
+                payload[0].property,
+                payload[0].constraints
+                    ? payload[0]
+                    : JSON.stringify(payload[0].children)
+            )}`;
+            alert(
+                payload.length >= 2
+                    ? `${message}\nplus ${payload.length - 1} other error${
+                          payload.length >= 3 ? "s" : ""
+                      }.`
+                    : message
+            );
+        }
+    }
+};
+
+const serverKeysToTextfieldTitle = (key: string) => {
+    if (key === "name") {
+        return "Level name";
+    }
+    if (key === "uploader") {
+        return "Username";
+    }
+    return key;
+};
+
+const replaceServerKeysByTextfieldTitle = (key: string, obj: {}) => {
+    const str = JSON.stringify(obj);
+    const re = new RegExp(key, "g");
+    return str.replace(re, serverKeysToTextfieldTitle(key));
+};
