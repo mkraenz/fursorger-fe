@@ -1,10 +1,9 @@
+import { isProductionBrowser } from "../isProductionBrowser";
+
 export const CONFIG = {
-    levelsMetadataUri:
-        (process.browser &&
-            window.location.hostname === "localhost" &&
-            "http://localhost:3140/prod/levels") ||
-        "https://r7qyjnm5u0.execute-api.eu-central-1.amazonaws.com/prod/prod/levels" ||
-        "https://my-json-server.typicode.com/proSingularity/fursorger-fe/levels",
+    levelsMetadataUri: isProductionBrowser
+        ? "https://r7qyjnm5u0.execute-api.eu-central-1.amazonaws.com/prod/prod/levels"
+        : "http://localhost:3140/prod/levels",
     emailJs: {
         serviceId: "default_service",
         templateId: "template_NpJqyVwR",

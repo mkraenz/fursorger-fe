@@ -6,6 +6,7 @@ import Head from "next/head";
 import React from "react";
 import ReactGA from "react-ga";
 import { Provider } from "react-redux";
+import { isProductionBrowser } from "../src/isProductionBrowser";
 import { makeStore } from "../src/redux/store";
 import theme from "../src/theme";
 
@@ -26,7 +27,7 @@ class MyApp extends App<{ store: ReturnType<typeof makeStore> }> {
             <React.Fragment>
                 <Head>
                     <title>Fursorger Game</title>
-                    {isProductionBrowser() && (
+                    {isProductionBrowser && (
                         <script type="text/javascript" id="inspectletjs">
                             {initInspectlet() as any}
                         </script>
@@ -73,11 +74,8 @@ const initInspectlet = () => {
     })();
 };
 
-const isProductionBrowser = () =>
-    process.browser && window.location.hostname !== "localhost";
-
 const initGoogleAnalytics = () => {
-    if (isProductionBrowser()) {
+    if (isProductionBrowser) {
         ReactGA.set({ anonymizeIp: true });
         ReactGA.initialize("UA-145441270-2");
         ReactGA.pageview(window.location.pathname + window.location.search);

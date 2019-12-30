@@ -6,8 +6,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import React, { useState } from "react";
 import Iframe from "react-iframe";
 import ClipLoader from "react-spinners/ClipLoader";
+import { isProductionBrowser } from "../isProductionBrowser";
 
-const GAME_URL = "https://fursorger-game.herokuapp.com/";
+const GAME_URL = isProductionBrowser
+    ? "https://fursorger-game.herokuapp.com/"
+    : "http://localhost:8080";
 
 const useStyles = makeStyles(theme => ({
     cardHeader: {
@@ -19,18 +22,25 @@ const useStyles = makeStyles(theme => ({
     iframe: {
         border: "none",
         width: "100%",
-        marginTop: "15px",
-        marginLeft: "22px",
+        marginTop: theme.spacing(1, 0),
     },
     loadingIndicator: {
         justifyContent: "center",
         display: "flex",
+    },
+    cardContent: {
+        padding: 0,
+        margin: 0,
     },
 }));
 
 const Game: React.FunctionComponent = () => {
     const classes = useStyles({});
     const [loading, setLoading] = useState(true);
+    let iframeHeight = 600;
+    if (process.browser) {
+        iframeHeight = Math.min(window.innerHeight, window.innerWidth);
+    }
 
     return (
         <Container maxWidth="md" component="main">
@@ -43,7 +53,7 @@ const Game: React.FunctionComponent = () => {
                     }}
                     className={classes.cardHeader}
                 />
-                <CardContent>
+                <CardContent className={classes.cardContent}>
                     <div className={classes.loadingIndicator}>
                         <ClipLoader
                             size={150}
@@ -53,10 +63,11 @@ const Game: React.FunctionComponent = () => {
                     </div>
                     <Iframe
                         url={GAME_URL}
-                        height={loading ? "0" : "620"}
+                        height={loading ? "0" : iframeHeight.toString()}
                         id="fursorger-phaser-game"
                         className={classes.iframe}
                         onLoad={() => setLoading(false)}
+                        scrolling="no"
                     />
                 </CardContent>
             </Card>
