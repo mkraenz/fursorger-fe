@@ -6,11 +6,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import React, { useState } from "react";
 import Iframe from "react-iframe";
 import ClipLoader from "react-spinners/ClipLoader";
-import { isProductionBrowser } from "../isProductionBrowser";
 
-const GAME_URL = isProductionBrowser
-    ? "https://fursorger-game.herokuapp.com/"
-    : "http://localhost:8080";
+const GAME_URL = "https://fursorger-game.herokuapp.com/";
 
 const useStyles = makeStyles(theme => ({
     cardHeader: {
