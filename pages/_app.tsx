@@ -78,6 +78,7 @@ const isProductionBrowser = () =>
 
 const initGoogleAnalytics = () => {
     if (isProductionBrowser()) {
+        ReactGA.set({ anonymizeIp: true });
         ReactGA.initialize("UA-145441270-2");
         ReactGA.pageview(window.location.pathname + window.location.search);
     }
