@@ -80,7 +80,13 @@ const LevelsTableRow: React.FunctionComponent<Props> = (props: Props) => {
 };
 
 const saveToFile = (metadata: Pick<ILevelMetadata, "level" | "name">) => {
-    const data = JSON.stringify(metadata.level, null, 4);
+    const levelWithIds: any = metadata.level;
+    const level = {
+        cities: levelWithIds.cities.map(omitId),
+        travelPaths: levelWithIds.travelPaths.map(omitId),
+        playerStock: levelWithIds.playerStock,
+    };
+    const data = JSON.stringify(level, null, 4);
     const blob = new Blob([data], {
         type: "application/json",
     });
@@ -96,3 +102,5 @@ export default connect(
     null,
     mapDispatchToProps
 )(LevelsTableRow);
+
+const omitId = ({ id, ...rest }: { id: string; [key: string]: string }) => rest;
