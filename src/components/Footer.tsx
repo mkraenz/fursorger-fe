@@ -24,18 +24,20 @@ const footers = [
     {
         title: "Dev Team",
         description: [
-            { href: "#", title: "Team" },
-            { href: "#", title: "History" },
+            {
+                href: "https://www.linkedin.com/in/mirco-kraenz/",
+                title: "Mirco",
+            },
+            { href: "#", title: "Matze" },
         ],
     },
     {
-        title: "History",
+        title: "More",
         description: [
             {
                 href: "https://prosingularity.github.io/parvenu/",
                 title: "Parvenu",
             },
-            { href: "#", title: "Developer stuff" },
         ],
     },
     {

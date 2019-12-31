@@ -2,7 +2,7 @@
 
 - [Zeit.co Dashboard](https://zeit.co/mirco/fursorger-fe)
 - [EmailJS Dashboard](https://dashboard.emailjs.com/)
-- [Inspectlet Dashboard](https://www.inspectlet.com/dashboard)
+- [Hotjar Dashboard](https://insights.hotjar.com/)
 
 ## How to use the original boilerplate
 
