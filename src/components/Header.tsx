@@ -24,8 +24,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const data = [
-    { href: "/story", title: "Story" },
     { href: "/how-to-play", title: "How to play" },
+    { href: "/story", title: "Story" },
 ];
 
 const Header: React.FunctionComponent = () => {

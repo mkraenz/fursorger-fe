@@ -1,6 +1,5 @@
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import Container from "@material-ui/core/Container";
@@ -26,14 +25,14 @@ const useStyles = makeStyles(theme => ({
                 ? theme.palette.grey[700]
                 : theme.palette.grey[200],
     },
-    cardPricing: {
+    cardSubheader: {
         display: "flex",
         justifyContent: "center",
         alignItems: "baseline",
         marginBottom: theme.spacing(2),
     },
     button: {
-        margin: theme.spacing(3, 8),
+        margin: theme.spacing(8, 0, 0, 0),
     },
 }));
 
@@ -45,18 +44,36 @@ export default function HowToPlay() {
     );
 }
 
+const NON_BREAKING_SPACE = "\u00a0";
+
 const tiers = [
     {
         title: "Win",
-        price: "Starvation prevented",
+        price: "Starvation Prevented",
         description: ["production is 0 or higher", "in every city"],
-        buttonText: "Sign up for free",
     },
     {
         title: "Lose",
-        price: "Starvation set in",
+        price: "Starvation Sets In",
         description: ["stock is below 0", "in any city"],
-        buttonText: "Sign up for free",
+    },
+    {
+        title: "Every Move",
+        price: "Consumption or Production",
+        description: [
+            "stocks are produced production positive",
+            "stocks are consumed if production negative",
+            "in every city",
+        ],
+    },
+    {
+        title: "Every Three Moves",
+        price: "Build a Factory",
+        description: [
+            "increase production by 1",
+            "in the city you are located",
+            NON_BREAKING_SPACE,
+        ],
     },
 ];
 
@@ -65,9 +82,8 @@ const Rules: React.FunctionComponent = () => {
 
     return (
         <Container maxWidth="md" component="main">
-            <Grid container spacing={5} alignItems="flex-end">
+            <Grid container spacing={6} alignItems="flex-end">
                 {tiers.map(tier => (
-                    // Enterprise card is full width at sm breakpoint
                     <Grid
                         item
                         key={tier.title}
@@ -82,7 +98,7 @@ const Rules: React.FunctionComponent = () => {
                                 className={classes.cardHeader}
                             />
                             <CardContent>
-                                <div className={classes.cardPricing}>
+                                <div className={classes.cardSubheader}>
                                     <Typography
                                         component="h5"
                                         variant="h6"
@@ -104,21 +120,21 @@ const Rules: React.FunctionComponent = () => {
                                     ))}
                                 </ul>
                             </CardContent>
-                            <CardActions>
-                                <Button
-                                    fullWidth
-                                    variant="contained"
-                                    color="primary"
-                                    href="/"
-                                    className={classes.button}
-                                >
-                                    Instant Play
-                                </Button>
-                            </CardActions>
                         </Card>
                     </Grid>
                 ))}
             </Grid>
+            <Container maxWidth="sm">
+                <Button
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    href="/"
+                    className={classes.button}
+                >
+                    Instant Play
+                </Button>
+            </Container>
         </Container>
     );
 };
