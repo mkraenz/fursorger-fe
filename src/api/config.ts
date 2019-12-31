@@ -9,6 +9,7 @@ export const CONFIG = {
         templateId: "template_NpJqyVwR",
         userId: "user_8Ocz3CMyCfVJCUSNA3S7k",
     },
+    gameUrl: "https://prosingularity.github.io/fursorger/",
 };
 
 export interface IEmailJSTemplate {

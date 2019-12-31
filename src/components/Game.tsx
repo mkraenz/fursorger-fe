@@ -6,8 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import React, { useState } from "react";
 import Iframe from "react-iframe";
 import ClipLoader from "react-spinners/ClipLoader";
-
-const GAME_URL = "https://fursorger-game.herokuapp.com/";
+import { CONFIG } from "../api/config";
 
 const useStyles = makeStyles(theme => ({
     cardHeader: {
@@ -59,7 +58,7 @@ const Game: React.FunctionComponent = () => {
                         />
                     </div>
                     <Iframe
-                        url={GAME_URL}
+                        url={CONFIG.gameUrl}
                         height={loading ? "0" : iframeHeight.toString()}
                         id="fursorger-phaser-game"
                         className={classes.iframe}
