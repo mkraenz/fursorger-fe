@@ -1,21 +1,15 @@
 import Container from "@material-ui/core/Container";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import React from "react";
-import Footer from "../src/components/Footer";
-import Header from "../src/components/Header";
-import HeroUnit from "../src/components/HeroUnit";
+import Layout from "../src/components/Layout";
 
-export default function HowToPlay() {
+export default () => {
     return (
-        <React.Fragment>
-            <CssBaseline />
-            <Header />
-            <HeroUnit />
-            <Imprint />
-            <Footer />
-        </React.Fragment>
+    <Layout>
+        <Imprint />
+    </Layout>
     );
 }
+
 const Imprint: React.FunctionComponent = () => {
     return (
         <Container maxWidth="md" component="main">

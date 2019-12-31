@@ -53,8 +53,8 @@ const footers = [
     {
         title: "Legal",
         description: [
-            { href: "/imprint", title: "Privacy policy" },
-            { href: "/imprint", title: "Imprint" },
+            { href: "/acknowledgement", title: "Acknowledgement" },
+            { href: "/imprint", title: "Imprint and Privacy policy" },
         ],
     },
 ];
