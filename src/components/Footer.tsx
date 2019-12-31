@@ -41,6 +41,13 @@ const footers = [
         ],
     },
     {
+        title: "Legal",
+        description: [
+            { href: "/acknowledgement", title: "Acknowledgement" },
+            { href: "/imprint", title: "Imprint and Privacy policy" },
+        ],
+    },
+    {
         title: "Resources",
         description: [
             { href: "https://phaser.io/phaser3", title: "Phaser 3" },
@@ -48,13 +55,6 @@ const footers = [
                 href: "https://inkarnate.com/",
                 title: "Inkarnate",
             },
-        ],
-    },
-    {
-        title: "Legal",
-        description: [
-            { href: "/acknowledgement", title: "Acknowledgement" },
-            { href: "/imprint", title: "Imprint and Privacy policy" },
         ],
     },
 ];
