@@ -3,7 +3,6 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import Container from "@material-ui/core/Container";
-import Link from "@material-ui/core/Link";
 import {
     createStyles,
     Theme,
@@ -22,10 +21,6 @@ import { IState } from "../../redux/store/IState";
 import UploadLevelFormDialog from "../UploadLevelFormDialog";
 import LevelsTableHead from "./LevelsTableHead";
 import LevelsTableRow from "./LevelsTableRow";
-
-function preventDefault(event: { preventDefault: () => void }) {
-    event.preventDefault();
-}
 
 const styles = (theme: Theme) =>
     createStyles({
@@ -96,15 +91,6 @@ class LevelsTable extends React.Component<Props, { onXs: boolean }> {
                                 ))}
                             </TableBody>
                         </Table>
-                        <div className={this.props.classes.seeMore}>
-                            <Link
-                                color="primary"
-                                href="#"
-                                onClick={preventDefault}
-                            >
-                                See more levels
-                            </Link>
-                        </div>
                         <Container maxWidth="xs">
                             <Button
                                 variant="contained"
