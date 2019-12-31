@@ -5,7 +5,7 @@ import React from "react";
 
 const useStyles = makeStyles(theme => ({
     heroContent: {
-        padding: theme.spacing(8, 0, 6),
+        padding: theme.spacing(8, 0, 8),
     },
 }));
 
