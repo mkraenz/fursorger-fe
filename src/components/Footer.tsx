@@ -32,7 +32,7 @@ const footers = [
         ],
     },
     {
-        title: "More",
+        title: "More Games",
         description: [
             {
                 href: "https://prosingularity.github.io/parvenu/",

@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const data = [
-    { href: "#", title: "Story" },
+    { href: "/story", title: "Story" },
     { href: "/how-to-play", title: "How to play" },
 ];
 

@@ -4,14 +4,11 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import Container from "@material-ui/core/Container";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import React from "react";
-import Footer from "../src/components/Footer";
-import Header from "../src/components/Header";
-import HeroUnit from "../src/components/HeroUnit";
+import Layout from "../src/components/Layout";
 
 const useStyles = makeStyles(theme => ({
     "@global": {
@@ -42,13 +39,9 @@ const useStyles = makeStyles(theme => ({
 
 export default function HowToPlay() {
     return (
-        <React.Fragment>
-            <CssBaseline />
-            <Header />
-            <HeroUnit />
+        <Layout>
             <Rules />
-            <Footer />
-        </React.Fragment>
+        </Layout>
     );
 }
 

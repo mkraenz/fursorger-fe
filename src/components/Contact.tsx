@@ -14,12 +14,6 @@ const useStyles = makeStyles(theme => ({
                 ? theme.palette.grey[700]
                 : theme.palette.grey[200],
     },
-    cardPricing: {
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "baseline",
-        marginBottom: theme.spacing(2),
-    },
     container: {
         marginTop: theme.spacing(15),
     },
