@@ -24,8 +24,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const data = [
-    { href: "#", title: "Background Story" },
-    { href: "#", title: "How to play" },
+    { href: "#", title: "Story" },
+    { href: "/how-to-play", title: "How to play" },
 ];
 
 const Header: React.FunctionComponent = () => {
@@ -45,11 +45,14 @@ const Header: React.FunctionComponent = () => {
                         noWrap
                         className={classes.toolbarTitle}
                     >
-                        Fursorger
+                        <Link color="textPrimary" href="/">
+                            Fursorger
+                        </Link>
                     </Typography>
                     <nav>
                         {data.map(date => (
                             <Link
+                                key={date.title}
                                 variant="button"
                                 color="textPrimary"
                                 href={date.href}

@@ -43,8 +43,8 @@ const footers = [
         description: [
             { href: "https://phaser.io/phaser3", title: "Phaser 3" },
             {
-                href: "https://github.com/digitsensitive/phaser3-typescript",
-                title: "Phaser 3 Template",
+                href: "https://inkarnate.com/",
+                title: "Inkarnate",
             },
         ],
     },
@@ -52,7 +52,7 @@ const footers = [
         title: "Legal",
         description: [
             { href: "#", title: "Privacy policy" },
-            { href: "#", title: "Terms of use" },
+            { href: "/imprint", title: "Imprint" },
         ],
     },
 ];
