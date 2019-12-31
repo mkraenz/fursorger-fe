@@ -1,10 +1,11 @@
 import AppBar from "@material-ui/core/AppBar";
-import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
+import IconButton from "@material-ui/core/IconButton";
 import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
+import GitHubIcon from "@material-ui/icons/GitHub";
 import React from "react";
 
 const useStyles = makeStyles(theme => ({
@@ -21,6 +22,11 @@ const useStyles = makeStyles(theme => ({
         margin: theme.spacing(1, 1.5),
     },
 }));
+
+const data = [
+    { href: "#", title: "Background Story" },
+    { href: "#", title: "How to play" },
+];
 
 const Header: React.FunctionComponent = () => {
     const classes = useStyles({});
@@ -42,39 +48,24 @@ const Header: React.FunctionComponent = () => {
                         Fursorger
                     </Typography>
                     <nav>
-                        <Link
-                            variant="button"
-                            color="textPrimary"
-                            href="#"
-                            className={classes.link}
-                        >
-                            Features
-                        </Link>
-                        <Link
-                            variant="button"
-                            color="textPrimary"
-                            href="#"
-                            className={classes.link}
-                        >
-                            Enterprise
-                        </Link>
-                        <Link
-                            variant="button"
-                            color="textPrimary"
-                            href="#"
-                            className={classes.link}
-                        >
-                            Support
-                        </Link>
+                        {data.map(date => (
+                            <Link
+                                variant="button"
+                                color="textPrimary"
+                                href={date.href}
+                                className={classes.link}
+                            >
+                                {date.title}
+                            </Link>
+                        ))}
                     </nav>
-                    <Button
-                        href="#"
-                        color="primary"
-                        variant="outlined"
+
+                    <IconButton
+                        href="https://github.com/proSingularity/fursorger"
                         className={classes.link}
                     >
-                        Login
-                    </Button>
+                        <GitHubIcon />
+                    </IconButton>
                 </Toolbar>
             </Container>
         </AppBar>

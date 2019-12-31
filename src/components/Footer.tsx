@@ -22,31 +22,38 @@ const useStyles = makeStyles(theme => ({
 
 const footers = [
     {
-        title: "Company",
-        description: ["Team", "History", "Contact us", "Locations"],
+        title: "Dev Team",
+        description: [
+            { href: "#", title: "Team" },
+            { href: "#", title: "History" },
+        ],
     },
     {
-        title: "Features",
+        title: "History",
         description: [
-            "Cool stuff",
-            "Random feature",
-            "Team feature",
-            "Developer stuff",
-            "Another one",
+            {
+                href: "https://prosingularity.github.io/parvenu/",
+                title: "Parvenu",
+            },
+            { href: "#", title: "Developer stuff" },
         ],
     },
     {
         title: "Resources",
         description: [
-            "Resource",
-            "Resource name",
-            "Another resource",
-            "Final resource",
+            { href: "https://phaser.io/phaser3", title: "Phaser 3" },
+            {
+                href: "https://github.com/digitsensitive/phaser3-typescript",
+                title: "Phaser 3 Template",
+            },
         ],
     },
     {
         title: "Legal",
-        description: ["Privacy policy", "Terms of use"],
+        description: [
+            { href: "#", title: "Privacy policy" },
+            { href: "#", title: "Terms of use" },
+        ],
     },
 ];
 
@@ -67,13 +74,13 @@ const Footer: React.FunctionComponent = () => {
                         </Typography>
                         <ul>
                             {footer.description.map(item => (
-                                <li key={item}>
+                                <li key={item.title}>
                                     <Link
-                                        href="#"
+                                        href={item.href}
                                         variant="subtitle1"
                                         color="textSecondary"
                                     >
-                                        {item}
+                                        {item.title}
                                     </Link>
                                 </li>
                             ))}
