@@ -35,7 +35,7 @@ const Game: React.FunctionComponent = () => {
     const [loading, setLoading] = useState(true);
     let iframeHeight = 600;
     if (process.browser) {
-        iframeHeight = Math.min(window.innerHeight, window.innerWidth);
+        iframeHeight = getResponsiveIframeHeight();
     }
 
     return (
@@ -72,3 +72,16 @@ const Game: React.FunctionComponent = () => {
 };
 
 export default Game;
+
+const getResponsiveIframeHeight = () => {
+    const materialUIMdBreakpoint = 1280;
+    const defaultGameHeight = 600;
+    const shortestEdge = Math.min(window.innerHeight, window.innerWidth);
+    const baseHeight = Math.min(defaultGameHeight, shortestEdge);
+    const aspectRatio =
+        Math.min(window.innerWidth, materialUIMdBreakpoint) /
+        window.innerHeight;
+    return window.innerWidth > window.innerHeight
+        ? baseHeight + 84 * aspectRatio
+        : baseHeight - 50 / aspectRatio;
+};
