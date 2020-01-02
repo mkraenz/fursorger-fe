@@ -3,7 +3,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Iframe from "react-iframe";
 import ClipLoader from "react-spinners/ClipLoader";
 import { CONFIG } from "../api/config";
@@ -37,6 +37,13 @@ const Game: React.FunctionComponent = () => {
     if (process.browser) {
         iframeHeight = getResponsiveIframeHeight();
     }
+    if (process.browser) {
+        useEffect(() => {
+            // https://help.hotjar.com/hc/en-us/articles/115011624347-Can-I-Track-iframes-in-Recordings
+            const iframe = document.getElementById("fursorger-phaser-game-iframe");
+            iframe?.setAttribute("data-hj-allow-iframe", "")
+        }, []);
+    }
 
     return (
         <Container maxWidth="md" component="main">
@@ -60,7 +67,7 @@ const Game: React.FunctionComponent = () => {
                     <Iframe
                         url={CONFIG.gameUrl}
                         height={loading ? "0" : iframeHeight.toString()}
-                        id="fursorger-phaser-game"
+                        id="fursorger-phaser-game-iframe"
                         className={classes.iframe}
                         onLoad={() => setLoading(false)}
                         scrolling="no"
