@@ -33,6 +33,10 @@ class MyApp extends App<{ store: ReturnType<typeof makeStore> }> {
                             {initHotjar() as any}
                         </script>
                     )}
+                    <meta
+                        name="google-site-verification"
+                        content="M1dIYD_XfBN9VrvtFHwCG3XUC0mOKjFwK83bEyUw27E"
+                    />
                 </Head>
                 <Provider store={store}>
                     <ThemeProvider theme={theme}>
