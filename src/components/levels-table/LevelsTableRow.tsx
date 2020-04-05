@@ -84,7 +84,8 @@ const saveToFile = (metadata: Pick<ILevelMetadata, "level" | "name">) => {
     const level = {
         cities: levelWithIds.cities.map(omitId),
         travelPaths: levelWithIds.travelPaths.map(omitId),
-        playerStock: levelWithIds.playerStock,
+        player: omitId(levelWithIds.player),
+        background: levelWithIds.background,
     };
     const data = JSON.stringify(level, null, 4);
     const blob = new Blob([data], {
