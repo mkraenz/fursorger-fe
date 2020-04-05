@@ -1,4 +1,5 @@
 import Button from "@material-ui/core/Button";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -11,6 +12,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { uploadLevelWithMetadata } from "../api/upload-level-with-metadata";
 import { assertBasicLevelStructure } from "../api/upload-level-with-metadata-helpers";
+import { fetchLevelMetadata } from "../redux/action-creators/fetchLevelMetadata";
 import { toggleLevelUploadDialog } from "../redux/action-creators/toggleLevelUploadDialog";
 import { IState } from "../redux/store/IState";
 
@@ -23,11 +25,16 @@ const useStyles = makeStyles(theme => ({
     },
     input: { display: "none" },
     button: { marginTop: theme.spacing(3) },
+    dialogContent: {
+        display: "flex",
+        justifyContent: "center",
+    },
 }));
 
 interface Props {
     open: boolean;
     toggleLevelUploadDialog: () => void;
+    fetchLevelMetadata: () => void;
 }
 
 const UploadLevelFormDialog: React.FunctionComponent<Props> = props => {
@@ -36,91 +43,105 @@ const UploadLevelFormDialog: React.FunctionComponent<Props> = props => {
     const [username, setUsername] = useState("");
     const [filepath, setFilepath] = useState("");
     const [fileContent, setFileContent] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const handleCancel = props.toggleLevelUploadDialog;
+    const handleSubmit_ = () =>
+        handleSubmit(
+            levelName,
+            username,
+            fileContent,
+            props.toggleLevelUploadDialog,
+            setLoading,
+            props.fetchLevelMetadata
+        );
     return (
         <Dialog open={props.open} onClose={handleCancel}>
             <DialogTitle id="form-dialog-title">
                 Share your own level
             </DialogTitle>
-            <DialogContent>
-                <TextField
-                    autoFocus
-                    required
-                    id="level-name"
-                    label="Level name"
-                    fullWidth
-                    className={classes.textField}
-                    value={levelName}
-                    onChange={event => setLevelName(event.target.value)}
-                />
-                <Tooltip title="Display name for column 'creator'">
+            {loading ? (
+                <DialogContent className={classes.dialogContent}>
+                    <CircularProgress />
+                </DialogContent>
+            ) : (
+                <DialogContent>
                     <TextField
-                        id="user-name"
+                        autoFocus
                         required
-                        label="Username"
+                        id="level-name"
+                        label="Level name"
                         fullWidth
                         className={classes.textField}
-                        value={username}
-                        onChange={event => setUsername(event.target.value)}
+                        value={levelName}
+                        onChange={event => setLevelName(event.target.value)}
                     />
-                </Tooltip>
-                <Grid container spacing={1} justify="space-evenly">
-                    <input
-                        accept=".json,application/json"
-                        required
-                        className={classes.input}
-                        id="upload-level-json-input"
-                        multiple
-                        type="file"
-                        onChange={event => {
-                            const cb = (content: string, filePath: string) => {
-                                try {
-                                    assertBasicLevelStructure(content);
-                                    setFileContent(content);
-                                    setFilepath(filePath);
-                                } catch (error) {
-                                    alert(error.message);
-                                }
-                            };
-                            handleFileSelect(event, cb);
-                        }}
-                    />
-                    <label htmlFor="upload-level-json-input">
-                        <Button
-                            component="span"
-                            className={classes.button}
-                            variant="outlined"
-                        >
-                            Upload file
-                        </Button>
-                    </label>
-                    <TextField
-                        id="file-name"
-                        disabled
-                        label="Selected file"
-                        className={classes.textField}
-                        value={
-                            getSelectedFileName(filepath) ||
-                            "Please select a .json file."
-                        }
-                    />
-                </Grid>
-            </DialogContent>
+                    <Tooltip title="Display name for column 'creator'">
+                        <TextField
+                            id="user-name"
+                            required
+                            inputProps={{ maxLength: 16 }}
+                            label="Username"
+                            fullWidth
+                            className={classes.textField}
+                            value={username}
+                            onChange={event => setUsername(event.target.value)}
+                        />
+                    </Tooltip>
+                    <Grid container spacing={1} justify="space-evenly">
+                        <input
+                            accept=".json,application/json"
+                            required
+                            className={classes.input}
+                            id="upload-level-json-input"
+                            multiple
+                            type="file"
+                            onChange={event => {
+                                const cb = (
+                                    content: string,
+                                    filePath: string
+                                ) => {
+                                    try {
+                                        assertBasicLevelStructure(content);
+                                        setFileContent(content);
+                                        setFilepath(filePath);
+                                    } catch (error) {
+                                        alert(error.message);
+                                    }
+                                };
+                                handleFileSelect(event, cb);
+                            }}
+                        />
+                        <label htmlFor="upload-level-json-input">
+                            <Button
+                                component="span"
+                                className={classes.button}
+                                variant="outlined"
+                            >
+                                Upload file
+                            </Button>
+                        </label>
+                        <TextField
+                            id="file-name"
+                            disabled
+                            label="Selected file"
+                            className={classes.textField}
+                            value={
+                                getSelectedFileName(filepath) ||
+                                "Please select a .json file."
+                            }
+                        />
+                    </Grid>
+                </DialogContent>
+            )}
             <DialogActions className={classes.submit}>
                 <Button onClick={handleCancel} color="primary">
                     Cancel
                 </Button>
                 <Button
-                    onClick={() =>
-                        handleSubmit(
-                            levelName,
-                            username,
-                            fileContent,
-                            props.toggleLevelUploadDialog
-                        )
-                    }
+                    onClick={handleSubmit_}
                     color="primary"
+                    disabled={loading}
                 >
                     Share
                 </Button>
@@ -133,8 +154,12 @@ const mapStateToProps = (state: IState): Pick<Props, "open"> => ({
     open: state.app.levelUploadDialogOpen,
 });
 
-const mapDispatchToProps: Pick<Props, "toggleLevelUploadDialog"> = {
+const mapDispatchToProps: Pick<
+    Props,
+    "toggleLevelUploadDialog" | "fetchLevelMetadata"
+> = {
     toggleLevelUploadDialog,
+    fetchLevelMetadata,
 };
 
 export default connect(
@@ -183,15 +208,20 @@ const handleSubmit = async (
     levelName: string,
     username: string,
     fileContent: string,
-    toggleLevelUploadDialog: () => void
+    toggleLevelUploadDialog: () => void,
+    setLoading: (loading: boolean) => void,
+    fetchLevelMetadata: () => void
 ) => {
     if (levelName && username && fileContent) {
         try {
+            setLoading(true);
             await uploadLevelWithMetadata(
                 levelName,
                 username,
                 JSON.parse(fileContent) // works because we assert parsability on file selection
             );
+            setLoading(false);
+            fetchLevelMetadata();
             toggleLevelUploadDialog();
         } catch (e) {
             const error: Error = e;
@@ -213,6 +243,7 @@ const handleSubmit = async (
                     ? payload[0]
                     : JSON.stringify(payload[0].children)
             )}`;
+            setLoading(false);
             alert(
                 payload.length >= 2
                     ? `${message}\nplus ${payload.length - 1} other error${
