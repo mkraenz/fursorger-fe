@@ -6,7 +6,7 @@ const LikeButton = (props: { likes: number; onClick: () => void }) => {
     const [clicked, setClicked] = useState(false);
     const onClick = () => {
         setClicked(true);
-        props.onClick;
+        props.onClick();
     };
     return (
         <span
