@@ -2,10 +2,15 @@ import intersection from "lodash.intersection";
 
 type IMaybeLevel = {
     cities: {}[];
-    playerStock: string;
+    player: {
+        stock: number;
+        location: string;
+    };
     travelPaths: {}[];
+    background: string;
     [key: string]: any;
 };
+const expectedNumberOfKeys = 4;
 
 /** asserts and throws user-readable errors if not */
 export const assertBasicLevelStructure = (content: string) => {
@@ -13,13 +18,13 @@ export const assertBasicLevelStructure = (content: string) => {
 
     obj = parseOrReadableError(content); // todo catch parse errors
 
-    const levelKeys = ["cities", "playerStock", "travelPaths"];
+    const levelKeys = ["cities", "player", "background", "travelPaths"];
     assertHasLevelKeys(obj, levelKeys);
 };
 
 const assertHasLevelKeys = (obj: IMaybeLevel, levelKeys: string[]) => {
     const keys = Object.keys(obj);
-    if (intersection(keys, levelKeys).length !== 3) {
+    if (intersection(keys, levelKeys).length !== expectedNumberOfKeys) {
         throw new Error(`Error: Selected file is a valid .json file but not a valid Fursorger level. Please correct.
 
 Expected keys in .json file to be exactly
