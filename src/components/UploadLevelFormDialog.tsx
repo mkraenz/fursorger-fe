@@ -113,7 +113,12 @@ const UploadLevelFormDialog: React.FunctionComponent<Props> = props => {
                 </Button>
                 <Button
                     onClick={() =>
-                        handleSubmit(levelName, username, fileContent)
+                        handleSubmit(
+                            levelName,
+                            username,
+                            fileContent,
+                            props.toggleLevelUploadDialog
+                        )
                     }
                     color="primary"
                 >
@@ -177,7 +182,8 @@ function handleFileSelect(
 const handleSubmit = async (
     levelName: string,
     username: string,
-    fileContent: string
+    fileContent: string,
+    toggleLevelUploadDialog: () => void
 ) => {
     if (levelName && username && fileContent) {
         try {
