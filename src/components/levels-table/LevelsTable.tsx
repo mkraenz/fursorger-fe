@@ -85,6 +85,7 @@ class LevelsTable extends React.Component<Props, { onXs: boolean }> {
                             <TableBody>
                                 {this.props.levelMetadata.map(row => (
                                     <LevelsTableRow
+                                        key={row.id}
                                         levelMetadata={row}
                                         onXs={this.state.onXs}
                                     />
