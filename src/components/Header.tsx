@@ -64,7 +64,7 @@ const Header: React.FunctionComponent = () => {
                     </nav>
 
                     <IconButton
-                        href="https://github.com/proSingularity/fursorger"
+                        href="https://github.com/mkraenz/fursorger"
                         className={classes.link}
                     >
                         <GitHubIcon />

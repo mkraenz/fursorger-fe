@@ -4,7 +4,7 @@
     "private": true,
     "repository": {
         "type": "git",
-        "url": "https://github.com/proSingularity/fursorger-fe.git"
+        "url": "https://github.com/mkraenz/fursorger-fe.git"
     },
     "author": "Mirco Kraenz",
     "license": "UNLICENSED",
